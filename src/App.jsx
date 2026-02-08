@@ -11,6 +11,14 @@ export default function App() {
   const [headerHeight, setHeaderHeight] = useState(0);
   const [number, setNumber]= useState(1);
   const [move, setMove]= useState(0);
+  const [message, setMessage]= useState("");
+
+  useEffect(async () => {
+    const res= await fetch("https://pg-sql-test.onrender.com/");
+    const data= await res.json();
+
+    setMessage(data);
+  }, [])
 
   useEffect(() => {
     const height = headerRef.current ? headerRef.current.offsetHeight : 0;
@@ -47,7 +55,7 @@ export default function App() {
         </aside>
         <article className="w-3/4 p-6" style={{ height: `calc(100vh - ${headerHeight}px)`, overflowY: 'auto' }}>
           <h1 className="text-3xl font-bold text-white mb-4">
-            Welcome to the Model Level App!
+            Welcome to the Model Level App! & ${message}
           </h1>
 
           <section className="w-full px-2 py-10 md:py-20 rounded-md flex flex-col justify-center items-center bg-gradient-to-r from-purple-500 to-blue-500">
